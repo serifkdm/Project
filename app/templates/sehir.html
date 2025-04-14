@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hava_durumu['sehir'] }} Hava Durumu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sehir.css') }}">
+</head>
+<body>
+
+
+    <div class="container">
+        <header>
+            <h1>{{ hava_durumu['sehir'] }} Hava Durumu</h1>
+            <div></div>
+            <img src="{{ url_for('static', filename='images/' ~ hava_durumu.sehir.lower() ~ '.png') }}" 
+     alt="{{ hava_durumu.sehir }} Görseli" 
+     class="city-image" 
+     onerror="if(this.src.indexOf('.png') !== -1) { this.src='{{ url_for('static', filename='images/' ~ hava_durumu.sehir.lower() ~ '.jpg') }}'; } else { this.style.display='none'; }">
+
+        </header>
+
+        <section class="weather-summary">
+            <div class="weather-container">
+                <div class="current-weather">
+                    <h2>Bugün</h2>
+                    <div class="weather-card">
+                        <p><strong>Sıcaklık:</strong> {{ hava_durumu['sicaklik'] }}</p><br>
+                        <p><strong>Durum:</strong> {{ hava_durumu['durum'] }}</p><br>
+                        <p><strong>Nem:</strong> {{ hava_durumu['nem'] }}</p><br>
+                        <p><strong>Rüzgar Hızı:</strong> {{ hava_durumu['ruzgar'] }}</p>
+                    </div>
+                </div>
+
+                <div class="forecast">
+                    <h2>5 Günlük Tahmin</h2>
+                    {% if gunluk_tahminler %}
+                        <div class="forecast-grid">
+                            {% for tahmin in gunluk_tahminler %}
+                                <div class="forecast-card">
+                                    <h3>{{ tahmin['tarih'] }}</h3>
+                                    <p><strong>Min:</strong> {{ tahmin['sicaklik_min'] }}°C</p>
+                                    <p><strong>Max:</strong> {{ tahmin['sicaklik_max'] }}°C</p>
+                                    <p><strong>Durum:</strong> {{ tahmin['durum'] }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Hava durumu tahminleri alınamadı.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="back-to-home">
+            <a href="{{ url_for('index') }}" class="back-button">Ana Sayfaya Dön</a>
+        </section>
+    </div>
+</body>
+</html>

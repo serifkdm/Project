@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block icerik %}
+<h1>
+<table>
+    <thead>
+<td>Ad</td><td>Soyad</td>
+    </thead>
+    <tbody>
+{% for kullanici in kullanicilar %}
+<tr>
+<td>{{kullanici[1]}}</td><td>{{kullanici[2]}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</h1>
+{% endblock %}

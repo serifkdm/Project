@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hava Durumu Arama</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stil.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('C:\Users\kadem\Desktop\hava.png'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            color: #333; 
+        }
+    
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            padding: 20px;
+        }
+    
+        header h1 {
+            color: #222; 
+            text-align: center;
+        }
+    </style>
+    
+</head>
+
+<body style="background-image: url('static/images/hava.jpeg');">
+    
+    
+
+    <div class="container">
+        <header>
+            <h1>Şehir Hava Durumu Arama</h1>
+            <form id="searchForm" method="GET">
+                <div class="input-container">
+                    <input type="text" id="sehir" name="sehir" placeholder="Şehir adı girin..." autocomplete="off">
+                    <ul id="suggestions"></ul>
+                </div>
+            </form>
+        </header>
+
+        <section id="sehirler">
+            <h2>Aranan Şehirler:</h2>
+            <div class="city-table-container">
+                {% for sehir in sehirler %}
+                    <div class="city-table">
+                        <a href="{{ url_for('sehir_hava_durumu', sehir=sehir) }}" class="city-link">{{ sehir }}</a>
+                        <button class="delete-button" data-city="{{ sehir }}">X</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <script>
+       $(document).ready(function() {
+        let suggestions = [];
+
+        
+        $('#sehir').on('input', function() {
+            let query = $(this).val();
+            if (query.length > 1) {
+                $.get('/arama', { q: query }, function(data) {
+                    
+                    suggestions = [...new Set(data)];  
+                    $('#suggestions').empty();
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(function(item) {
+                            $('#suggestions').append('<li>' + item + '</li>');
+                        });
+                    } else {
+                        $('#suggestions').append('<li>Hiçbir şehir bulunamadı</li>');
+                    }
+                });
+            } else {
+                suggestions = [];  
+                $('#suggestions').empty();
+            }
+        });
+
+        
+        $('#sehir').on('keydown', function(event) {
+            if (event.key === 'Enter' && suggestions.length > 0) {
+                let firstSuggestion = suggestions[0];  
+                window.location.href = '/sehir/' + firstSuggestion;  
+                event.preventDefault();  
+            }
+        });
+
+        
+        $(document).on('click', '#suggestions li', function() {
+            let sehirAdi = $(this).text();
+            window.location.href = '/sehir/' + sehirAdi;  
+        });
+
+        
+        $(document).on('click', '.delete-button', function() {
+            let cityName = $(this).data('city');
+            $(this).parent().remove();  
+
+            
+            $.post('/sil', { sehir: cityName }, function(response) {
+                console.log('Şehir silindi');
+            }).fail(function() {
+            });
+        });
+    });
+    </script>
+</body>
+</html>

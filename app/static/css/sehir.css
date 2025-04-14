@@ -1,0 +1,137 @@
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.weather-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.weather-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+
+.current-weather {
+    width: 40%; 
+}
+
+.weather-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.weather-card p {
+    margin: 5px 0;
+    font-size: 2em; 
+}
+
+.weather-icon i {
+    font-size: 2em; 
+    color: #ffcc00; 
+    margin-left: 10px;
+}
+
+
+.forecast-icon i {
+    font-size: 1.5em; 
+    color: #ff6600; 
+}
+
+
+
+
+
+.forecast {
+    width: 55%; 
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
+}
+
+.forecast-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em; 
+}
+
+.forecast-card h3 {
+    font-size: 1.1em; 
+}
+.city-image {
+    width: 400px; 
+    max-width: 400px;
+    max-height: 170px;
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
+    position: fixed; 
+    bottom: 0; 
+     
+    z-index: 10; 
+    border-radius: 5%;
+}
+
+.back-to-home {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 8px 16px; 
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.forecast {
+    width: 55%;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(2, 1fr); 
+    gap: 15px;
+}
+
+.forecast-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+}
+
+.forecast-card h3 {
+    font-size: 1.1em;
+}
